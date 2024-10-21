@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/DBSCAN_Parallel.dir/main.cu.o CMakeFiles/DBSCAN_Parallel.dir/SequentialDBSCAN.cpp.o CMakeFiles/DBSCAN_Parallel.dir/Points.cpp.o CMakeFiles/DBSCAN_Parallel.dir/cmake_device_link.o -o DBSCAN_Parallel   -L/usr/local/cuda-11.8/targets/x86_64-linux/lib/stubs  -L/usr/local/cuda-11.8/targets/x86_64-linux/lib  -lcudadevrt -lcudart_static -lrt -lpthread -ldl 
