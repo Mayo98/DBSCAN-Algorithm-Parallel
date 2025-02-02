@@ -6,7 +6,6 @@ Created on Wed Nov 22 15:02:44 2023
 @author: giacomomagistrato
 """
 
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -15,13 +14,18 @@ centroX = []
 centroY = []
 
 #with open('4-clusters.txt','r') as input_file:
-
+with open('cmake-build-debug/cluster_details/clusters.txt', 'r') as f:
+    lines = f.readlines()
+    for line in lines:
+        x, y = line.strip().split(' ')
+        centroids[float(x)] = float(y)
+        #print(centroX, centroY)
 points = {}
 
 puntoX = []
 puntoY = []
 puntoZ = []
-with open('cmake-build-debug/cluster_details/clusteringS.txt', 'r') as f:
+with open('cmake-build-debug/cluster_details/clustering.txt', 'r') as f:
     lines = f.readlines()
     i = 0
     for line in lines:
@@ -43,20 +47,28 @@ for chiave, valori in points.items():
     z1.append(z)
     x1.append(chiave)
 
-
+x, y = zip(*centroids.items())
 
 #plt.scatter(x1, y1, c = z1,   cmap = "viridis", label = 'points')
 
 plt.scatter(puntoX, puntoY, c = puntoZ,   cmap = "viridis", label = 'points')
+plt.scatter(x, y, c ="red", label = 'centroids')
 plt.scatter(centroX, centroY, c ="red", label = 'centroids')
 plt.xlabel('X')
 plt.ylabel('Y')
-plt.title('k-Means Clustering')
+plt.title('DBSCAN Clustering')
 plt.savefig('result.png')
 plt.show()
 
 
 ax.legend()
+
+
+
+
+
+
+#ax.legend()
 
 
 

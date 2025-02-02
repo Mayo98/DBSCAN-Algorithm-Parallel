@@ -9,7 +9,13 @@ add_executable(DBSCAN_Parallel main.cu
         SequentialDBSCAN.cpp
         SequentialDBSCAN.h
         Points.cpp
-        Points.h)
+        Points.h
+        KDNode.cpp
+        KDNode.h
+        KDNode.h
+        KDNode.cpp
+        KDTree.cpp
+        KDTree.h)
 
 set_target_properties(DBSCAN_Parallel PROPERTIES
         CUDA_SEPARABLE_COMPILATION ON)

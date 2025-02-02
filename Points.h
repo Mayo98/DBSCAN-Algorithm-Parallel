@@ -13,7 +13,7 @@
 #include <chrono>
 #include <filesystem>
 #include <algorithm>
-
+#include "KDTree.h"
 using namespace std;
 
 class Points {
@@ -24,7 +24,7 @@ private:
 
     std::vector<float>xval;
     std::vector<float>yval;
-
+    KDTree kdTree;
     std::vector<int>clusters;
     std::vector<int>ptsCnt;
 public:
@@ -40,6 +40,7 @@ public:
     void initCluster(int dimensions);
     float getYval(int pos);
 
+    std::vector<std::tuple<float, float, int>> findNearby(float x, float y, float eps);
 };
 
 #endif //DBSCAN_PARALLEL_POINTS_H

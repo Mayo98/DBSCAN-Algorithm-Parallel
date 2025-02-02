@@ -25,6 +25,8 @@ void Points::lineToVec(std::string& dir) {
         cout << "Error: Failed to open file." << endl;
         return;
     }
+    float x,y;
+    int idx = 0;
     while (getline(infile, line)) {
         for (int i = 0; i < static_cast<int>(line.length()); i++) {
             if ((48 <= static_cast<int>(line[i]) && static_cast<int>(line[i]) <= 57) || line[i] == '.' ||
@@ -33,14 +35,17 @@ void Points::lineToVec(std::string& dir) {
 
             } else if (!tmp.empty()) {
                 xval.push_back(std::stod(tmp));
+                x = std::stod(tmp);
                 tmp = "";
             }
 
         }
         if (!tmp.empty()) {
             yval.push_back(std::stod(tmp));
+            y = std::stod(tmp);
             tmp = "";
         }
+        this->kdTree.insert(x,y,idx++);
         this->clusters.push_back(-1); //inizializzo anche il vettore clusters a -1 NOT_CLASSIFIED
         this->ptsCnt.push_back(0);  // inizializzo vettore contatore vicini a 0
     }
@@ -51,10 +56,11 @@ void Points::lineToVec(std::string& dir) {
     std::cout << "Punti totali letti : " << xval.size() << std::endl;
 
 }
-Points::Points(std::string dir)
+Points::Points(std::string dir): kdTree()
 {
     this->lineToVec(dir);
     this->dimensions = xval.size();
+
 }
 
 int Points::getDimensions()
@@ -75,14 +81,17 @@ float Points::getYval(int pos)
     return yval[pos];
 }
 int Points::getNumPoints(int idx) {
+
     return ptsCnt[idx];
 }
 void Points::addNeighbor(int idx) {
     this->ptsCnt[idx]++;
 }
-
-
-
 void Points::setCluster(int idx, int val) {
     this->clusters[idx] = val;
+}
+
+std::vector<std::tuple<float, float, int>> Points::findNearby(float x, float y, float eps) {
+    std::vector<std::tuple<float, float, int>> nearby = kdTree.findNearby(x,y, eps);
+    return nearby;
 }
