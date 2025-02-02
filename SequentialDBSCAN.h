@@ -25,18 +25,15 @@ private:
 
 public:
     SequentialDBSCAN(std::string output_dir, std::string input_dir, int n , float eps, int minPts);
-    void checkNearPoints(int size);
-    std::vector<int>used_pointIds;
     void run();
     float getDistance(int idx1, int idx2);
-
+    ~SequentialDBSCAN() {
+        adjPoints.clear();  // Libera la memoria associata ai vettori nidificati.
+    }
     bool isCoreObject(int idx);
 
     void dfs(int now, int c);
-
-    void dfs2(int now, int c);
-
-    void checkNearPoints2(int size);
+    void checkNearPoints(int size);
 };
 
 
